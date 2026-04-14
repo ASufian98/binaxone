@@ -2,7 +2,14 @@
   "permissions": {
     "allow": [
       "Bash(ngrok version:*)",
-      "Bash(npx:*)"
+      "Bash(npx:*)",
+      "Bash(lsof -ti:8080)",
+      "Bash(xargs kill:*)",
+      "Bash(npm start:*)",
+      "Bash(curl -s -w \"\\\\nHTTP %{http_code}\\\\n\" -X POST http://localhost:8080/api/contact -H \"Content-Type: application/json\" -d '{\"name\":\"CLI Test\",\"email\":\"ammar@bina.cloud\",\"message\":\"post-key-update probe\"}')",
+      "Bash(curl -s -w \"\\\\nHTTP %{http_code}\\\\n\" -X POST http://localhost:8080/api/contact -H \"Content-Type: application/json\" -d '{\"name\":\"CLI Test\",\"email\":\"ammar@bina.cloud\",\"message\":\"post-new-key probe\"}')",
+      "Bash(curl -s -o /dev/null -w \"healthz: %{http_code}\\\\n\" http://localhost:8080/healthz)",
+      "Bash(curl -s -w \"\\\\nHTTP %{http_code}\\\\n\" -X POST http://localhost:8080/api/contact -H \"Content-Type: application/json\" -d '{\"name\":\"Node24 Test\",\"email\":\"ammar@bina.cloud\",\"message\":\"running on Node 24\"}')"
     ]
   }
 }

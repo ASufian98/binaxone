@@ -12,7 +12,7 @@ PLAN=binaxone-plan
 
 az group create -n $RG -l $LOCATION
 az appservice plan create -g $RG -n $PLAN --is-linux --sku B1
-az webapp create -g $RG -p $PLAN -n $APP --runtime "NODE:20-lts"
+az webapp create -g $RG -p $PLAN -n $APP --runtime "NODE:22-lts"
 ```
 
 ## 2. Application settings (env vars)
@@ -26,7 +26,7 @@ az webapp config appsettings set -g $RG -n $APP --settings \
   MAILGUN_SENDER_EMAIL='noreply@bina.cloud' \
   MAILGUN_SENDER_NAME='BinaXone Website' \
   SALES_INBOX='sales@bina.cloud' \
-  WEBSITE_NODE_DEFAULT_VERSION='~20' \
+  WEBSITE_NODE_DEFAULT_VERSION='~22' \
   SCM_DO_BUILD_DURING_DEPLOYMENT='true'
 ```
 
@@ -53,7 +53,7 @@ Pick one:
 ### Option A — `az webapp up` (fastest)
 From the repo root:
 ```bash
-az webapp up -g $RG -n $APP --runtime "NODE:20-lts"
+az webapp up -g $RG -n $APP --runtime "NODE:22-lts"
 ```
 
 ### Option B — GitHub Actions

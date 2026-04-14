@@ -40,9 +40,9 @@ async function sendMail(fields) {
 }
 
 app.post('/api/contact', async (req, res) => {
-  const { name = '', email = '', message = '', company_website = '' } = req.body || {};
+  const { name = '', email = '', message = '', hp_field_xyz = '' } = req.body || {};
 
-  if (company_website.trim() !== '') {
+  if (hp_field_xyz.trim() !== '') {
     return res.status(200).json({ ok: true });
   }
 
