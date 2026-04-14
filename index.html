@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JKR BINAXONE — Common Data Environment for Malaysian AEC</title>
+  <meta name="description" content="JKR BINAXONE is a Common Data Environment (CDE) built for Malaysian government agencies, contractors, and consultants. IFC-native, JKR BIM-aligned, hosted on TM One Cloud Alpha." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            'jkr-yellow': '#F2C200',
+            'jkr-amber': '#F59E0B',
+            'jkr-orange': '#EA580C',
+            'ink': '#0F0F0F',
+            'ink-2': '#1A1A1A',
+            'ink-3': '#262626',
+            'bone': '#F5F5F5',
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'Segoe UI', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; animation: none !important; } }
+    html, body { overflow-x: hidden; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: #FFFFFF; color: #0F0F0F; -webkit-font-smoothing: antialiased; text-wrap: pretty; }
+    h1, h2, h3 { text-wrap: balance; overflow-wrap: break-word; }
+    img, svg { max-width: 100%; height: auto; }
+    .blueprint-grid {
+      background-image:
+        linear-gradient(rgba(15,15,15,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15,15,15,0.06) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+    .yellow-glow {
+      background: radial-gradient(60% 60% at 50% 30%, rgba(242,194,0,0.30), rgba(245,158,11,0.12) 40%, transparent 70%);
+    }
+    .yellow-glow-sm {
+      background: radial-gradient(50% 50% at 50% 50%, rgba(242,194,0,0.22), transparent 70%);
+    }
+    .text-gradient-yellow {
+      background: linear-gradient(90deg, #D4A600 0%, #F59E0B 55%, #EA580C 100%);
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .card { background: #FFFFFF; border: 1px solid #E5E5E5; box-shadow: 0 1px 2px rgba(15,15,15,0.04); }
+    .card:hover { border-color: rgba(242,194,0,0.7); box-shadow: 0 8px 24px -12px rgba(242,194,0,0.25); }
+    .btn-primary { background: #F2C200; color: #0F0F0F; font-weight: 700; }
+    .btn-primary:hover { filter: brightness(0.95); }
+    .btn-secondary { background: transparent; color: #0F0F0F; border: 1px solid #0F0F0F; }
+    .btn-secondary:hover { background: #0F0F0F; color: #F2C200; }
+    :focus-visible { outline: 2px solid #F2C200; outline-offset: 2px; border-radius: 4px; }
+    .nav-scrolled { border-bottom-color: rgba(15,15,15,0.10) !important; box-shadow: 0 4px 16px -8px rgba(15,15,15,0.10); }
+    .screenshot-placeholder {
+      background:
+        linear-gradient(135deg, rgba(242,194,0,0.18), rgba(234,88,12,0.08) 60%, rgba(245,245,245,0.9)),
+        repeating-linear-gradient(45deg, rgba(15,15,15,0.04) 0 10px, transparent 10px 20px);
+      border: 1px solid #E5E5E5;
+    }
+    details > summary { list-style: none; }
+    details > summary::-webkit-details-marker { display: none; }
+    /* Darken yellow text for AA contrast on white backgrounds; tinted chips/icons still look yellow on their yellow/10 fills */
+    .text-jkr-yellow { color: #A07800; }
+
+    /* Sidebar drawer */
+    .sidebar { transform: translateX(100%); transition: transform 280ms cubic-bezier(.22,.61,.36,1); }
+    .sidebar.open { transform: translateX(0); }
+    .sidebar-backdrop { opacity: 0; pointer-events: none; transition: opacity 200ms ease; }
+    .sidebar-backdrop.open { opacity: 1; pointer-events: auto; }
+    body.nav-locked { overflow: hidden; }
+
+    /* Illustration surfaces */
+    .illus-surface {
+      background:
+        radial-gradient(120% 80% at 0% 0%, rgba(242,194,0,0.18), transparent 55%),
+        radial-gradient(120% 80% at 100% 100%, rgba(234,88,12,0.12), transparent 60%),
+        linear-gradient(180deg, #FFFFFF 0%, #FAFAFA 100%);
+      border: 1px solid #E5E5E5;
+      box-shadow: 0 20px 50px -30px rgba(15,15,15,0.25);
+    }
+    .illus-grid {
+      background-image:
+        linear-gradient(rgba(15,15,15,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15,15,15,0.05) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    .chip { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; font-size: 11px; font-weight: 600; background: #F5F5F5; color: #0F0F0F; border: 1px solid #E5E5E5; }
+  </style>
+</head>
+<body class="bg-white text-ink">
+
+  <a href="#top" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-3 focus:py-2 focus:bg-jkr-yellow focus:text-ink">Skip to content</a>
+
+  <!-- NAV -->
+  <header id="nav" class="fixed top-0 inset-x-0 z-40 backdrop-blur bg-white/85 border-b border-transparent transition-colors">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between" aria-label="Primary">
+      <a href="#top" class="flex items-center gap-2">
+        <span class="inline-block w-2.5 h-2.5 rounded-sm bg-jkr-yellow"></span>
+        <span class="font-extrabold tracking-tight text-jkr-yellow text-lg">JKR BINAXONE</span>
+      </a>
+      <ul class="hidden md:flex items-center gap-7 text-sm text-ink/80">
+        <li><a href="#features" class="hover:text-jkr-yellow">Features</a></li>
+        <li><a href="#why" class="hover:text-jkr-yellow">Benefits</a></li>
+        <li><a href="#case-study" class="hover:text-jkr-yellow">Case Study</a></li>
+        <li><a href="#compliance" class="hover:text-jkr-yellow">Compliance</a></li>
+        <li><a href="#pricing" class="hover:text-jkr-yellow">Pricing</a></li>
+        <li><a href="#faq" class="hover:text-jkr-yellow">FAQ</a></li>
+      </ul>
+      <div class="flex items-center gap-2">
+        <a href="#contact" class="hidden sm:inline-flex btn-primary px-4 py-2 rounded-md text-sm">Contact Sales</a>
+        <button id="menu-toggle" class="md:hidden p-2 rounded-md border border-neutral-200" aria-expanded="false" aria-controls="sidebar" aria-label="Open menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <!-- MOBILE SIDEBAR -->
+  <div id="sidebar-backdrop" class="sidebar-backdrop md:hidden fixed inset-0 bg-ink/50 z-40" aria-hidden="true"></div>
+  <aside id="sidebar" class="sidebar md:hidden fixed top-0 right-0 h-full w-[82%] max-w-sm bg-white border-l border-neutral-200 z-50 shadow-2xl flex flex-col" role="dialog" aria-modal="true" aria-label="Site menu">
+    <div class="flex items-center justify-between px-5 h-16 border-b border-neutral-200">
+      <div class="flex items-center gap-2">
+        <span class="inline-block w-2.5 h-2.5 rounded-sm bg-jkr-yellow"></span>
+        <span class="font-extrabold tracking-tight text-jkr-yellow text-base">JKR BINAXONE</span>
+      </div>
+      <button id="sidebar-close" class="p-2 rounded-md border border-neutral-200 hover:bg-neutral-50" aria-label="Close menu">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <nav class="flex-1 overflow-y-auto px-3 py-4" aria-label="Mobile">
+      <ul class="flex flex-col text-base">
+        <li><a href="#features" class="sidebar-link flex items-center justify-between py-3 px-3 rounded-md hover:bg-neutral-50"><span>Features</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-ink/40" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a></li>
+        <li><a href="#why" class="sidebar-link flex items-center justify-between py-3 px-3 rounded-md hover:bg-neutral-50"><span>Benefits</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-ink/40" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a></li>
+        <li><a href="#case-study" class="sidebar-link flex items-center justify-between py-3 px-3 rounded-md hover:bg-neutral-50"><span>Case Study</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-ink/40" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a></li>
+        <li><a href="#compliance" class="sidebar-link flex items-center justify-between py-3 px-3 rounded-md hover:bg-neutral-50"><span>Compliance</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-ink/40" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a></li>
+        <li><a href="#pricing" class="sidebar-link flex items-center justify-between py-3 px-3 rounded-md hover:bg-neutral-50"><span>Pricing</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-ink/40" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a></li>
+        <li><a href="#faq" class="sidebar-link flex items-center justify-between py-3 px-3 rounded-md hover:bg-neutral-50"><span>FAQ</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-ink/40" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a></li>
+      </ul>
+    </nav>
+    <div class="p-4 border-t border-neutral-200">
+      <a href="#contact" class="sidebar-link btn-primary block text-center px-4 py-3 rounded-md">Contact Sales</a>
+      <p class="mt-3 text-[11px] text-ink/55 text-center">Built by Bina Cloudtech Sdn Bhd · Putrajaya</p>
+    </div>
+  </aside>
+
+  <main id="top" class="pt-16">
+
+    <!-- HERO -->
+    <section class="relative overflow-hidden">
+      <div class="absolute inset-0 blueprint-grid opacity-60 pointer-events-none" aria-hidden="true"></div>
+      <div class="absolute inset-0 yellow-glow pointer-events-none" aria-hidden="true"></div>
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 lg:py-32">
+        <div class="grid lg:grid-cols-12 gap-12 items-center">
+          <div class="lg:col-span-7">
+            <p class="inline-flex items-center gap-2 text-xs font-semibold tracking-widest uppercase text-jkr-yellow bg-jkr-yellow/10 border border-jkr-yellow/30 px-3 py-1 rounded-full">
+              <span class="w-1.5 h-1.5 rounded-full bg-jkr-yellow animate-pulse"></span>
+              CDE for Malaysian AEC
+            </p>
+            <h1 class="mt-6 text-[2rem] leading-[1.1] sm:text-5xl sm:leading-[1.05] lg:text-6xl font-extrabold tracking-tight">
+              Built for how construction <span class="text-gradient-yellow">actually works</span> in Malaysia.
+            </h1>
+            <p class="mt-5 text-base sm:text-lg md:text-xl text-ink/80 max-w-2xl">
+              JKR BINAXONE is the Common Data Environment aligned with JKR BIM standards, ISO 19650, and Malaysian procurement realities — so your documents, models, and approvals move at the speed of the project.
+            </p>
+            <div class="mt-8 flex flex-col sm:flex-row sm:flex-wrap gap-3">
+              <a href="#contact" class="btn-primary inline-flex items-center justify-center gap-2 px-6 py-3 rounded-md">
+                Contact Sales
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+              </a>
+              <a href="#features" class="btn-secondary inline-flex items-center justify-center px-6 py-3 rounded-md">See the platform</a>
+            </div>
+            <div class="mt-10 flex flex-wrap items-center gap-x-4 sm:gap-x-6 gap-y-2 text-[11px] sm:text-xs uppercase tracking-widest text-ink/60">
+              <span>Hosted in Malaysia</span><span class="text-jkr-yellow/60">·</span>
+              <span>ISO 19650-aligned</span><span class="text-jkr-yellow/60">·</span>
+              <span>IFC-native</span><span class="text-jkr-yellow/60">·</span>
+              <span>JKR BIM standards</span>
+            </div>
+          </div>
+
+          <!-- HERO ILLUSTRATION: product dashboard mock -->
+          <div class="lg:col-span-5 relative">
+            <div class="illus-surface rounded-2xl p-4 sm:p-5 relative overflow-hidden">
+              <!-- window chrome -->
+              <div class="flex items-center gap-1.5 mb-3">
+                <span class="w-2.5 h-2.5 rounded-full bg-jkr-yellow/80"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-neutral-300"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-neutral-300"></span>
+                <span class="ml-3 text-[10px] tracking-widest uppercase text-ink/45">Project · KL-INFRA-07</span>
+              </div>
+              <!-- BIM viewer panel -->
+              <div class="relative rounded-lg border border-neutral-200 bg-white overflow-hidden">
+                <div class="illus-grid aspect-[4/3] relative">
+                  <svg viewBox="0 0 400 300" class="absolute inset-0 w-full h-full" aria-hidden="true">
+                    <defs>
+                      <linearGradient id="bim-g" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="#F2C200" stop-opacity="0.35"/>
+                        <stop offset="100%" stop-color="#EA580C" stop-opacity="0.18"/>
+                      </linearGradient>
+                    </defs>
+                    <!-- isometric building frame -->
+                    <g stroke="#0F0F0F" stroke-width="1" fill="none" stroke-linejoin="round">
+                      <polygon points="200,60 320,120 320,220 200,280 80,220 80,120" fill="url(#bim-g)"/>
+                      <line x1="200" y1="60" x2="200" y2="280"/>
+                      <line x1="80" y1="120" x2="320" y2="120"/>
+                      <line x1="80" y1="170" x2="320" y2="170"/>
+                      <line x1="80" y1="220" x2="320" y2="220"/>
+                      <line x1="140" y1="90" x2="140" y2="250"/>
+                      <line x1="260" y1="90" x2="260" y2="250"/>
+                    </g>
+                    <!-- slab hatching -->
+                    <g stroke="#A07800" stroke-width="0.8" opacity="0.6">
+                      <line x1="85" y1="165" x2="315" y2="165"/>
+                      <line x1="85" y1="215" x2="315" y2="215"/>
+                    </g>
+                    <!-- clash indicator dot -->
+                    <circle cx="260" cy="170" r="6" fill="#EA580C"/>
+                    <circle cx="260" cy="170" r="11" fill="none" stroke="#EA580C" stroke-width="1.2" opacity="0.5"/>
+                  </svg>
+                  <!-- toolbar -->
+                  <div class="absolute top-3 left-3 flex gap-1.5">
+                    <span class="w-7 h-7 rounded-md bg-white border border-neutral-200 flex items-center justify-center text-ink/70"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 3 3 7.5v9L12 21l9-4.5v-9L12 3Z"/></svg></span>
+                    <span class="w-7 h-7 rounded-md bg-white border border-neutral-200 flex items-center justify-center text-ink/70"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span>
+                    <span class="w-7 h-7 rounded-md bg-white border border-neutral-200 flex items-center justify-center text-ink/70"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg></span>
+                  </div>
+                  <!-- clash pill -->
+                  <div class="absolute top-3 right-3 chip" style="background:#FFF3E0;border-color:#FCD5A0;color:#B45309">
+                    <span class="w-1.5 h-1.5 rounded-full bg-jkr-orange"></span> 1 clash
+                  </div>
+                </div>
+              </div>
+
+              <!-- document list below viewer -->
+              <div class="mt-3 grid grid-cols-2 gap-2 text-[11px]">
+                <div class="rounded-md border border-neutral-200 bg-white p-2.5">
+                  <div class="flex items-center justify-between">
+                    <span class="font-semibold text-ink/80">Architecture</span>
+                    <span class="chip" style="padding:2px 6px;font-size:9px;background:#FFF9DB;border-color:#F2C200;color:#A07800">Published</span>
+                  </div>
+                  <div class="mt-1 text-ink/50">Rev C · signed</div>
+                </div>
+                <div class="rounded-md border border-neutral-200 bg-white p-2.5">
+                  <div class="flex items-center justify-between">
+                    <span class="font-semibold text-ink/80">Structural</span>
+                    <span class="chip" style="padding:2px 6px;font-size:9px;background:#F5F5F5;border-color:#E5E5E5;color:#0F0F0F">In Review</span>
+                  </div>
+                  <div class="mt-1 text-ink/50">Rev B · 2 notes</div>
+                </div>
+                <div class="rounded-md border border-neutral-200 bg-white p-2.5">
+                  <div class="flex items-center justify-between">
+                    <span class="font-semibold text-ink/80">MEP</span>
+                    <span class="chip" style="padding:2px 6px;font-size:9px;background:#F5F5F5;border-color:#E5E5E5;color:#0F0F0F">Shared</span>
+                  </div>
+                  <div class="mt-1 text-ink/50">Rev A · coord.</div>
+                </div>
+                <div class="rounded-md border border-neutral-200 bg-white p-2.5">
+                  <div class="flex items-center justify-between">
+                    <span class="font-semibold text-ink/80">Civil</span>
+                    <span class="chip" style="padding:2px 6px;font-size:9px;background:#FFF9DB;border-color:#F2C200;color:#A07800">Published</span>
+                  </div>
+                  <div class="mt-1 text-ink/50">Rev D · signed</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- floating accent card -->
+            <div class="hidden sm:flex absolute -bottom-5 -left-5 lg:-left-8 items-center gap-3 bg-white border border-neutral-200 shadow-xl rounded-xl p-3 pr-4">
+              <div class="w-9 h-9 rounded-md bg-jkr-yellow/15 border border-jkr-yellow/40 flex items-center justify-center text-jkr-yellow">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg>
+              </div>
+              <div>
+                <div class="text-xs font-semibold">Drawing signed</div>
+                <div class="text-[10px] text-ink/55">Post-quantum · 12s ago</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section id="features" class="relative py-16 sm:py-24 border-t border-neutral-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-2xl">
+          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">One platform. Every stage of the project.</h2>
+          <p class="mt-4 text-ink/75">From BPEP through handover, JKR BINAXONE covers the workflows AEC teams actually run — without plugins, foreign desktop installs, or proprietary lock-in.</p>
+        </div>
+
+        <div class="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <!-- 1 -->
+          <article class="card rounded-xl p-6 transition-colors">
+            <div class="w-11 h-11 rounded-lg bg-jkr-yellow/10 border border-jkr-yellow/30 flex items-center justify-center text-jkr-yellow">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 3 3 7.5v9L12 21l9-4.5v-9L12 3Z"/><path d="M3 7.5 12 12l9-4.5M12 12v9"/></svg>
+            </div>
+            <h3 class="mt-5 text-lg font-semibold">3D BIM Model Viewer</h3>
+            <p class="mt-2 text-sm text-ink/70">Browser-native. No plugins, no desktop install. Open federated models on any device, straight from a link.</p>
+          </article>
+          <!-- 2 -->
+          <article class="card rounded-xl p-6 transition-colors">
+            <div class="w-11 h-11 rounded-lg bg-jkr-yellow/10 border border-jkr-yellow/30 flex items-center justify-center text-jkr-yellow">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M7 3h7l5 5v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1Z"/><path d="M14 3v5h5M9 13h6M9 17h6"/></svg>
+            </div>
+            <h3 class="mt-5 text-lg font-semibold">Document Management &amp; CDE Workflows</h3>
+            <p class="mt-2 text-sm text-ink/70">Controlled issue, transmittals, revisions, and approvals — structured around ISO 19650 states.</p>
+          </article>
+          <!-- 3 -->
+          <article class="card rounded-xl p-6 transition-colors">
+            <div class="w-11 h-11 rounded-lg bg-jkr-yellow/10 border border-jkr-yellow/30 flex items-center justify-center text-jkr-yellow">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M4 5h16v14H4z"/><path d="M4 9h16M9 5v14"/></svg>
+            </div>
+            <h3 class="mt-5 text-lg font-semibold">BPEP</h3>
+            <p class="mt-2 text-sm text-ink/70">Live BIM Project Execution Plan — roles, LODs, exchange requirements, and milestones tracked in-platform.</p>
+          </article>
+          <!-- 4 -->
+          <article class="card rounded-xl p-6 transition-colors sm:col-span-2 lg:col-span-1">
+            <div class="w-11 h-11 rounded-lg bg-jkr-yellow/10 border border-jkr-yellow/30 flex items-center justify-center text-jkr-yellow">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M4 12h16M4 6h10M4 18h10"/><circle cx="18" cy="18" r="2"/><circle cx="18" cy="6" r="2"/></svg>
+            </div>
+            <h3 class="mt-5 text-lg font-semibold">Design Review Workflow</h3>
+            <p class="mt-2 text-sm text-ink/70">Enforced gates from draft to archive, with digital sign-off at every transition.</p>
+            <div class="mt-4 flex flex-wrap gap-1.5 text-[11px] font-medium">
+              <span class="px-2 py-1 rounded-full bg-neutral-100 text-ink/80">WIP</span>
+              <span class="text-ink/40">→</span>
+              <span class="px-2 py-1 rounded-full bg-neutral-100 text-ink/80">In Review</span>
+              <span class="text-ink/40">→</span>
+              <span class="px-2 py-1 rounded-full bg-neutral-100 text-ink/80">Shared</span>
+              <span class="text-ink/40">→</span>
+              <span class="px-2 py-1 rounded-full bg-jkr-yellow/15 text-jkr-yellow border border-jkr-yellow/30">Published</span>
+              <span class="text-ink/40">→</span>
+              <span class="px-2 py-1 rounded-full bg-neutral-100 text-ink/80">Archive</span>
+            </div>
+          </article>
+          <!-- 5 -->
+          <article class="card rounded-xl p-6 transition-colors">
+            <div class="w-11 h-11 rounded-lg bg-jkr-yellow/10 border border-jkr-yellow/30 flex items-center justify-center text-jkr-yellow">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>
+            </div>
+            <h3 class="mt-5 text-lg font-semibold">4D Scheduling &amp; Sequencing</h3>
+            <p class="mt-2 text-sm text-ink/70">Tie model elements to construction schedules. Visualise sequencing, clashes, and critical-path risk before it hits site.</p>
+          </article>
+          <!-- 6 -->
+          <article class="card rounded-xl p-6 transition-colors">
+            <div class="w-11 h-11 rounded-lg bg-jkr-yellow/10 border border-jkr-yellow/30 flex items-center justify-center text-jkr-yellow">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3Z"/></svg>
+            </div>
+            <h3 class="mt-5 text-lg font-semibold">Access Control / RBAC</h3>
+            <p class="mt-2 text-sm text-ink/70">Granular role-based access mirrored to real project structures — client, PMC, consultant, contractor, sub-contractor.</p>
+          </article>
+          <!-- 7 -->
+          <article class="card rounded-xl p-6 transition-colors sm:col-span-2 lg:col-span-3">
+            <div class="flex flex-col sm:flex-row items-start gap-4 sm:gap-5">
+              <div class="w-11 h-11 shrink-0 rounded-lg bg-jkr-yellow/10 border border-jkr-yellow/30 flex items-center justify-center text-jkr-yellow">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M3 4h18v4H3zM3 10h12v10H3zM17 14l2 2 4-4"/></svg>
+              </div>
+              <div class="min-w-0">
+                <h3 class="text-lg font-semibold">Audit Logs &amp; Digital Signing</h3>
+                <p class="mt-2 text-sm text-ink/70 max-w-3xl">Every action time-stamped, every sign-off cryptographically bound to the artefact. Export a complete project chain-of-custody when auditors or arbitration call for it.</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORKFLOW STRIP -->
+    <section class="relative py-12 sm:py-16 border-t border-neutral-200 bg-neutral-50/60">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-12 gap-8 items-center">
+          <div class="lg:col-span-5">
+            <p class="text-xs font-semibold uppercase tracking-widest text-jkr-yellow">Workflow</p>
+            <h3 class="mt-3 text-2xl sm:text-3xl font-extrabold tracking-tight">From draft to published — one workflow, fully signed.</h3>
+            <p class="mt-4 text-ink/75">Every document and model moves through enforced ISO 19650 states, with digital sign-off captured at each transition. Auditable end-to-end, exportable on demand.</p>
+          </div>
+          <div class="lg:col-span-7">
+            <div class="illus-surface rounded-2xl p-5 sm:p-6">
+              <div class="flex flex-col sm:flex-row items-stretch gap-3">
+                <div class="flex-1 rounded-lg bg-white border border-neutral-200 p-3">
+                  <div class="text-[10px] uppercase tracking-widest text-ink/50">Stage 1</div>
+                  <div class="mt-1 font-semibold">WIP</div>
+                  <div class="mt-3 flex gap-1"><span class="h-1 flex-1 rounded bg-jkr-yellow"></span><span class="h-1 flex-1 rounded bg-neutral-200"></span><span class="h-1 flex-1 rounded bg-neutral-200"></span><span class="h-1 flex-1 rounded bg-neutral-200"></span></div>
+                </div>
+                <svg class="hidden sm:block self-center text-ink/30" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                <div class="flex-1 rounded-lg bg-white border border-neutral-200 p-3">
+                  <div class="text-[10px] uppercase tracking-widest text-ink/50">Stage 2</div>
+                  <div class="mt-1 font-semibold">In Review</div>
+                  <div class="mt-3 flex gap-1"><span class="h-1 flex-1 rounded bg-jkr-yellow"></span><span class="h-1 flex-1 rounded bg-jkr-yellow"></span><span class="h-1 flex-1 rounded bg-neutral-200"></span><span class="h-1 flex-1 rounded bg-neutral-200"></span></div>
+                </div>
+                <svg class="hidden sm:block self-center text-ink/30" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                <div class="flex-1 rounded-lg bg-white border border-jkr-yellow/50 ring-1 ring-jkr-yellow/30 p-3">
+                  <div class="text-[10px] uppercase tracking-widest text-jkr-yellow">Stage 3</div>
+                  <div class="mt-1 font-semibold flex items-center gap-1.5">Published
+                    <svg class="text-jkr-yellow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m5 12 5 5L20 7"/></svg>
+                  </div>
+                  <div class="mt-3 flex gap-1"><span class="h-1 flex-1 rounded bg-jkr-yellow"></span><span class="h-1 flex-1 rounded bg-jkr-yellow"></span><span class="h-1 flex-1 rounded bg-jkr-yellow"></span><span class="h-1 flex-1 rounded bg-jkr-yellow"></span></div>
+                </div>
+              </div>
+              <div class="mt-4 flex flex-wrap items-center gap-2 text-[11px]">
+                <span class="chip">Post-quantum signed</span>
+                <span class="chip">Audit trail</span>
+                <span class="chip">ISO 19650</span>
+                <span class="chip">RBAC enforced</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY -->
+    <section id="why" class="relative py-16 sm:py-24 border-t border-neutral-200 overflow-hidden">
+      <div class="absolute -top-20 left-1/2 -translate-x-1/2 w-[800px] h-[400px] yellow-glow-sm pointer-events-none" aria-hidden="true"></div>
+      <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-2xl">
+          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Why teams choose JKR BINAXONE.</h2>
+          <p class="mt-4 text-ink/75">Four reasons our customers move off foreign CDE platforms — and don't look back.</p>
+        </div>
+        <div class="mt-14 grid grid-cols-1 md:grid-cols-2 gap-5">
+          <article class="card rounded-xl p-7">
+            <div class="flex items-center gap-3 text-jkr-yellow">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14 0 18M12 3c-3 3.5-3 14 0 18"/></svg>
+              <h3 class="text-xl font-bold">Data Sovereignty</h3>
+            </div>
+            <p class="mt-3 text-ink/75">Hosted on TM One Cloud Alpha in Malaysia. Your project data is stored, processed, and backed up inside Malaysian jurisdiction — and never leaves the country.</p>
+          </article>
+          <article class="card rounded-xl p-7">
+            <div class="flex items-center gap-3 text-jkr-yellow">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+              <h3 class="text-xl font-bold">Open Standards</h3>
+            </div>
+            <p class="mt-3 text-ink/75">IFC-native with full support for open BIM formats. No proprietary container, no export-only pipeline, no hostage data. Your models stay yours, forever.</p>
+          </article>
+          <article class="card rounded-xl p-7">
+            <div class="flex items-center gap-3 text-jkr-yellow">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+              <h3 class="text-xl font-bold">Quantum-Ready Security</h3>
+            </div>
+            <p class="mt-3 text-ink/75">Post-quantum cryptography for document signing and BIM file integrity, aligned with Malaysian national cybersecurity direction. Long-lived infrastructure projects deserve long-lived cryptography.</p>
+          </article>
+          <article class="card rounded-xl p-7">
+            <div class="flex items-center gap-3 text-jkr-yellow">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/><circle cx="12" cy="12" r="3"/></svg>
+              <h3 class="text-xl font-bold">Built for Malaysian Workflows</h3>
+            </div>
+            <p class="mt-3 text-ink/75">Aligned with JKR BIM standards, ISO 19650, and the procurement realities government agencies and contractors actually face. Localised — not translated.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CASE STUDY -->
+    <section id="case-study" class="relative py-16 sm:py-24 border-t border-neutral-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
+        <div>
+          <p class="text-xs font-semibold uppercase tracking-widest text-jkr-yellow">Case Study</p>
+          <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight">How a large infrastructure project streamlined its CDE.</h2>
+          <p class="mt-5 text-ink/75">A multi-disciplinary infrastructure programme consolidated drawings, models, and approvals onto JKR BINAXONE — replacing a patchwork of email threads, shared drives, and foreign CDE platforms. Within one quarter, coordination meetings halved and sign-off cycles dropped below a business day.</p>
+          <div class="mt-8 grid grid-cols-3 gap-3 sm:gap-4">
+            <div class="card rounded-lg p-4">
+              <div class="text-2xl sm:text-3xl font-extrabold text-jkr-yellow">60%</div>
+              <div class="mt-1 text-xs text-ink/70 leading-tight">Faster document turnaround</div>
+            </div>
+            <div class="card rounded-lg p-4">
+              <div class="text-2xl sm:text-3xl font-extrabold text-jkr-yellow">0</div>
+              <div class="mt-1 text-xs text-ink/70 leading-tight">Clash-related RFIs in final coordination</div>
+            </div>
+            <div class="card rounded-lg p-4">
+              <div class="text-2xl sm:text-3xl font-extrabold text-jkr-yellow">12+</div>
+              <div class="mt-1 text-xs text-ink/70 leading-tight">Disciplines on a single source of truth</div>
+            </div>
+          </div>
+          <p class="mt-6 text-xs text-ink/50">Client name and project details withheld under NDA. Metrics reflect platform-reported activity over a single programme phase.</p>
+        </div>
+        <div class="illus-surface rounded-xl p-4 sm:p-5 relative">
+          <div class="flex items-center gap-1.5 mb-3">
+            <span class="w-2.5 h-2.5 rounded-full bg-jkr-yellow/80"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-neutral-300"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-neutral-300"></span>
+            <span class="ml-3 text-[10px] tracking-widest uppercase text-ink/45">Programme · Infra-MY</span>
+          </div>
+          <div class="rounded-lg border border-neutral-200 bg-white overflow-hidden">
+            <div class="illus-grid aspect-[16/11] relative">
+              <svg viewBox="0 0 600 400" class="absolute inset-0 w-full h-full" aria-hidden="true">
+                <defs>
+                  <linearGradient id="cs-g" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#F2C200" stop-opacity="0.28"/>
+                    <stop offset="100%" stop-color="#EA580C" stop-opacity="0.12"/>
+                  </linearGradient>
+                </defs>
+                <!-- bridge / infrastructure wireframe -->
+                <g stroke="#0F0F0F" stroke-width="1" fill="none">
+                  <path d="M40 280 Q300 140 560 280" stroke-width="1.5"/>
+                  <path d="M40 300 Q300 170 560 300" opacity="0.6"/>
+                  <line x1="40" y1="280" x2="40" y2="360"/>
+                  <line x1="160" y1="236" x2="160" y2="360"/>
+                  <line x1="300" y1="190" x2="300" y2="360"/>
+                  <line x1="440" y1="236" x2="440" y2="360"/>
+                  <line x1="560" y1="280" x2="560" y2="360"/>
+                  <line x1="30" y1="360" x2="570" y2="360"/>
+                  <polygon points="40,280 160,236 300,190 440,236 560,280 560,300 440,256 300,210 160,256 40,300" fill="url(#cs-g)"/>
+                </g>
+                <!-- gridlines on road -->
+                <g stroke="#A07800" stroke-width="0.6" opacity="0.5">
+                  <line x1="60" y1="360" x2="540" y2="360"/>
+                  <line x1="60" y1="350" x2="540" y2="350" stroke-dasharray="4 6"/>
+                </g>
+                <!-- status pins -->
+                <g>
+                  <circle cx="160" cy="236" r="5" fill="#A07800"/>
+                  <circle cx="300" cy="190" r="6" fill="#F2C200" stroke="#A07800"/>
+                  <circle cx="440" cy="236" r="5" fill="#A07800"/>
+                </g>
+              </svg>
+              <!-- top-left legend -->
+              <div class="absolute top-3 left-3 flex flex-col gap-1.5">
+                <span class="chip" style="padding:2px 8px;font-size:9px">12 disciplines</span>
+                <span class="chip" style="padding:2px 8px;font-size:9px;background:#FFF9DB;border-color:#F2C200;color:#A07800">All published</span>
+              </div>
+              <!-- bottom timeline -->
+              <div class="absolute bottom-2 left-3 right-3 flex items-center gap-1">
+                <span class="h-1 flex-1 rounded bg-jkr-yellow"></span>
+                <span class="h-1 flex-1 rounded bg-jkr-yellow"></span>
+                <span class="h-1 flex-1 rounded bg-jkr-yellow"></span>
+                <span class="h-1 flex-1 rounded bg-jkr-yellow/60"></span>
+                <span class="h-1 flex-1 rounded bg-neutral-200"></span>
+              </div>
+            </div>
+          </div>
+          <div class="mt-3 flex items-center justify-between text-[11px] text-ink/55">
+            <span>4D sequence · Q2–Q4</span>
+            <span class="text-ink/40">Screenshot redacted</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPLIANCE -->
+    <section id="compliance" class="relative py-16 sm:py-24 border-t border-neutral-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-2xl">
+          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Compliance &amp; security, by default.</h2>
+          <p class="mt-4 text-ink/75">Every project on JKR BINAXONE inherits the same controls — no add-ons, no upgrade tier required.</p>
+        </div>
+        <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <!-- badge template -->
+          <div class="card rounded-lg p-5 flex items-start gap-4">
+            <div class="w-10 h-10 shrink-0 rounded-md bg-jkr-yellow/10 border border-jkr-yellow/30 flex items-center justify-center text-jkr-yellow">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+            </div>
+            <div><div class="font-semibold">ISO 19650</div><div class="text-xs text-ink/65 mt-1">Information management aligned to the global CDE standard.</div></div>
+          </div>
+          <div class="card rounded-lg p-5 flex items-start gap-4">
+            <div class="w-10 h-10 shrink-0 rounded-md bg-jkr-yellow/10 border border-jkr-yellow/30 flex items-center justify-center text-jkr-yellow">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h10M7 13h6M7 17h4"/></svg>
+            </div>
+            <div><div class="font-semibold">ISO/IEC 27001</div><div class="text-xs text-ink/65 mt-1">Delivered via TM One Cloud Alpha, Cyberjaya — Tier III data centre.</div></div>
+          </div>
+          <div class="card rounded-lg p-5 flex items-start gap-4">
+            <div class="w-10 h-10 shrink-0 rounded-md bg-jkr-yellow/10 border border-jkr-yellow/30 flex items-center justify-center text-jkr-yellow">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+            </div>
+            <div><div class="font-semibold">AES-256 Encryption</div><div class="text-xs text-ink/65 mt-1">All data encrypted at rest with industry-standard AES-256.</div></div>
+          </div>
+          <div class="card rounded-lg p-5 flex items-start gap-4">
+            <div class="w-10 h-10 shrink-0 rounded-md bg-jkr-yellow/10 border border-jkr-yellow/30 flex items-center justify-center text-jkr-yellow">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M4 12a8 8 0 0 1 16 0M4 12a8 8 0 0 0 16 0M4 12h16"/></svg>
+            </div>
+            <div><div class="font-semibold">TLS 1.3</div><div class="text-xs text-ink/65 mt-1">Modern transport security on every connection, end to end.</div></div>
+          </div>
+          <div class="card rounded-lg p-5 flex items-start gap-4">
+            <div class="w-10 h-10 shrink-0 rounded-md bg-jkr-yellow/10 border border-jkr-yellow/30 flex items-center justify-center text-jkr-yellow">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/><circle cx="19" cy="18" r="2"/></svg>
+            </div>
+            <div><div class="font-semibold">Audit Logging</div><div class="text-xs text-ink/65 mt-1">Every action traceable; export for audit or arbitration on demand.</div></div>
+          </div>
+          <div class="card rounded-lg p-5 flex items-start gap-4">
+            <div class="w-10 h-10 shrink-0 rounded-md bg-jkr-yellow/10 border border-jkr-yellow/30 flex items-center justify-center text-jkr-yellow">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5"/><circle cx="17" cy="9" r="2"/><path d="M14 20c0-2 1.5-3.5 3-3.5s3 1.5 3 3.5"/></svg>
+            </div>
+            <div><div class="font-semibold">RBAC</div><div class="text-xs text-ink/65 mt-1">Role-based access control mapped to real project organisations.</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing" class="relative py-16 sm:py-24 border-t border-neutral-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-2xl">
+          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Terms of Reference.</h2>
+          <p class="mt-4 text-ink/75">Every engagement quoted to your scope — projects, agencies, and programmes alike.</p>
+        </div>
+        <div class="mt-14 max-w-lg mx-auto">
+          <article class="card rounded-xl p-7 flex flex-col relative border-jkr-yellow/60 ring-1 ring-jkr-yellow/30">
+            <h3 class="text-lg font-bold">JKR BINAXONE</h3>
+            <p class="mt-1 text-sm text-ink/65">Tailored for consultants, contractors, agencies, and large programmes.</p>
+            <div class="mt-6 text-2xl font-extrabold text-jkr-yellow">Contact for pricing</div>
+            <ul class="mt-6 space-y-2 text-sm text-ink/80 flex-1">
+              <li class="flex gap-2"><span class="text-jkr-yellow">✓</span> Multi-project portfolio &amp; core CDE workflows</li>
+              <li class="flex gap-2"><span class="text-jkr-yellow">✓</span> 3D BIM viewer, IFC, BPEP, 4D scheduling, design review</li>
+              <li class="flex gap-2"><span class="text-jkr-yellow">✓</span> Digital signing, audit export &amp; compliance mapping</li>
+              <li class="flex gap-2"><span class="text-jkr-yellow">✓</span> SSO, custom RBAC, on-premise or dedicated tenancy</li>
+              <li class="flex gap-2"><span class="text-jkr-yellow">✓</span> Priority support, onboarding &amp; dedicated success engineer</li>
+            </ul>
+            <a href="#contact" class="mt-8 btn-primary text-center px-5 py-2.5 rounded-md text-sm">Contact Sales</a>
+          </article>
+        </div>
+        <p class="mt-8 text-xs text-ink/55 max-w-3xl">Flexible licensing models available — royalty-based, annual subscription, or pay-per-project — tailored to government procurement and private-sector contract structures.</p>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="relative py-16 sm:py-24 border-t border-neutral-200">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <p class="text-xs font-semibold uppercase tracking-widest text-jkr-yellow">Built by Bina Cloudtech Sdn Bhd</p>
+        <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight">Malaysian engineering for Malaysian infrastructure.</h2>
+        <p class="mt-6 text-ink/75 text-lg">We build JKR BINAXONE from Putrajaya, alongside the agencies and delivery teams we serve. Our engineers have spent their careers on AEC platforms and government compliance — and we believe the country's most important projects deserve infrastructure owned, operated, and secured here at home.</p>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="relative py-16 sm:py-24 border-t border-neutral-200">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-center">Frequently asked questions.</h2>
+        <div class="mt-12 divide-y divide-neutral-200 border border-neutral-200 rounded-xl overflow-hidden">
+
+          <details class="group">
+            <summary class="flex items-center justify-between p-5 cursor-pointer hover:bg-neutral-50">
+              <span class="font-semibold pr-4">What is a CDE and why do I need one?</span>
+              <svg class="w-5 h-5 text-jkr-yellow transition-transform group-open:rotate-45" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+            </summary>
+            <div class="px-5 pb-5 text-ink/75 text-sm">A Common Data Environment is the single, controlled source of truth for project information — drawings, models, correspondence, approvals. It replaces email chains and shared drives with structured workflows, audit trails, and enforced review gates. For any project of meaningful size, a CDE isn't optional; it's the only way coordination holds together.</div>
+          </details>
+
+          <details class="group">
+            <summary class="flex items-center justify-between p-5 cursor-pointer hover:bg-neutral-50">
+              <span class="font-semibold pr-4">Is JKR BINAXONE compliant with ISO 19650 and JKR BIM standards?</span>
+              <svg class="w-5 h-5 text-jkr-yellow transition-transform group-open:rotate-45" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+            </summary>
+            <div class="px-5 pb-5 text-ink/75 text-sm">Yes. The platform is built around ISO 19650 information states and JKR BIM standard deliverables, including BPEP structure, naming conventions, and transmittal workflows. Reviews, approvals, and digital signatures are captured in a form that maps directly to JKR audit expectations.</div>
+          </details>
+
+          <details class="group">
+            <summary class="flex items-center justify-between p-5 cursor-pointer hover:bg-neutral-50">
+              <span class="font-semibold pr-4">Where is my data stored?</span>
+              <svg class="w-5 h-5 text-jkr-yellow transition-transform group-open:rotate-45" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+            </summary>
+            <div class="px-5 pb-5 text-ink/75 text-sm">On TM One Cloud Alpha, hosted in Cyberjaya, Malaysia — a Tier III data centre operated by a Malaysian vendor. Your project data is stored, processed, and backed up entirely within Malaysian jurisdiction.</div>
+          </details>
+
+          <details class="group">
+            <summary class="flex items-center justify-between p-5 cursor-pointer hover:bg-neutral-50">
+              <span class="font-semibold pr-4">What file formats are supported?</span>
+              <svg class="w-5 h-5 text-jkr-yellow transition-transform group-open:rotate-45" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+            </summary>
+            <div class="px-5 pb-5 text-ink/75 text-sm">JKR BINAXONE is IFC-native and supports common open BIM formats, alongside standard document formats (PDF, DWG, DOCX, XLSX, images). Open formats are first-class citizens — not a second-tier export path.</div>
+          </details>
+
+          <details class="group">
+            <summary class="flex items-center justify-between p-5 cursor-pointer hover:bg-neutral-50">
+              <span class="font-semibold pr-4">How does JKR BINAXONE compare to foreign CDE platforms?</span>
+              <svg class="w-5 h-5 text-jkr-yellow transition-transform group-open:rotate-45" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+            </summary>
+            <div class="px-5 pb-5 text-ink/75 text-sm">Foreign CDE platforms weren't designed around JKR workflows, Malaysian procurement, or local data-sovereignty requirements. We are. You get equivalent or better technical capability, with hosting, support, and accountability inside the country — at licensing structures that match local procurement practice.</div>
+          </details>
+
+          <details class="group">
+            <summary class="flex items-center justify-between p-5 cursor-pointer hover:bg-neutral-50">
+              <span class="font-semibold pr-4">Can JKR BINAXONE be deployed on-premise?</span>
+              <svg class="w-5 h-5 text-jkr-yellow transition-transform group-open:rotate-45" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+            </summary>
+            <div class="px-5 pb-5 text-ink/75 text-sm">Yes. Enterprise engagements support dedicated tenancy on TM One Cloud Alpha, hybrid deployments, or full on-premise installation inside an agency's own data centre for the most sensitive programmes.</div>
+          </details>
+
+          <details class="group">
+            <summary class="flex items-center justify-between p-5 cursor-pointer hover:bg-neutral-50">
+              <span class="font-semibold pr-4">What does "post-quantum cryptography" mean for my documents?</span>
+              <svg class="w-5 h-5 text-jkr-yellow transition-transform group-open:rotate-45" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+            </summary>
+            <div class="px-5 pb-5 text-ink/75 text-sm">Today's digital signatures can become forgeable once quantum computing matures. Infrastructure projects outlive the cryptography that signed them. Post-quantum algorithms are resistant to attacks from future quantum machines, which means a document signed in JKR BINAXONE today stays legally and technically verifiable decades from now — aligned with Malaysian national cybersecurity direction.</div>
+          </details>
+
+          <details class="group">
+            <summary class="flex items-center justify-between p-5 cursor-pointer hover:bg-neutral-50">
+              <span class="font-semibold pr-4">How is JKR BINAXONE priced?</span>
+              <svg class="w-5 h-5 text-jkr-yellow transition-transform group-open:rotate-45" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+            </summary>
+            <div class="px-5 pb-5 text-ink/75 text-sm">Three tiers — Starter, Professional, Enterprise — each quoted to scope. Licensing can be structured as royalty-based, annual subscription, or pay-per-project to match government procurement processes and private-sector contracts. Contact sales for a tailored proposal.</div>
+          </details>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="relative py-16 sm:py-24 border-t border-neutral-200 overflow-hidden">
+      <div class="absolute inset-0 yellow-glow-sm opacity-70 pointer-events-none" aria-hidden="true"></div>
+      <div class="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="card rounded-2xl p-6 sm:p-10">
+          <div class="text-center">
+            <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Let's talk.</h2>
+            <p class="mt-3 text-ink/75">We'll get back to you within 1 business day.</p>
+          </div>
+          <form action="#" method="post" class="mt-10 space-y-5" novalidate>
+            <div style="position:absolute;left:-9999px" aria-hidden="true">
+              <label>Do not fill<input type="text" name="company_website" tabindex="-1" autocomplete="off" /></label>
+            </div>
+            <div>
+              <label for="name" class="block text-sm font-medium mb-2">Name</label>
+              <input id="name" name="name" type="text" required autocomplete="name" class="w-full bg-white border border-neutral-200 rounded-md px-4 py-3 text-ink placeholder:text-ink/40 focus:border-jkr-yellow" placeholder="Your full name" />
+            </div>
+            <div>
+              <label for="email" class="block text-sm font-medium mb-2">Email</label>
+              <input id="email" name="email" type="email" required autocomplete="email" class="w-full bg-white border border-neutral-200 rounded-md px-4 py-3 text-ink placeholder:text-ink/40 focus:border-jkr-yellow" placeholder="name@organisation.gov.my" />
+            </div>
+            <div>
+              <label for="message" class="block text-sm font-medium mb-2">Message</label>
+              <textarea id="message" name="message" rows="5" required class="w-full bg-white border border-neutral-200 rounded-md px-4 py-3 text-ink placeholder:text-ink/40 focus:border-jkr-yellow" placeholder="Tell us about your project, agency, or programme."></textarea>
+            </div>
+            <button type="submit" class="btn-primary w-full px-5 py-3 rounded-md">Send message</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-neutral-200 bg-neutral-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 grid grid-cols-1 md:grid-cols-4 gap-10">
+      <div class="md:col-span-2">
+        <div class="flex items-center gap-2">
+          <span class="inline-block w-2.5 h-2.5 rounded-sm bg-jkr-yellow"></span>
+          <span class="font-extrabold tracking-tight text-jkr-yellow text-lg">JKR BINAXONE</span>
+        </div>
+        <p class="mt-4 text-sm text-ink/65 max-w-sm">A Common Data Environment for the Malaysian AEC industry. Built by Bina Cloudtech Sdn Bhd, Putrajaya.</p>
+      </div>
+      <div>
+        <div class="text-xs font-semibold uppercase tracking-widest text-ink/60">Platform</div>
+        <ul class="mt-4 space-y-2 text-sm">
+          <li><a href="#features" class="text-ink/80 hover:text-jkr-yellow">Features</a></li>
+          <li><a href="#why" class="text-ink/80 hover:text-jkr-yellow">Benefits</a></li>
+          <li><a href="#compliance" class="text-ink/80 hover:text-jkr-yellow">Compliance</a></li>
+          <li><a href="#pricing" class="text-ink/80 hover:text-jkr-yellow">Pricing</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="text-xs font-semibold uppercase tracking-widest text-ink/60">Contact</div>
+        <ul class="mt-4 space-y-2 text-sm text-ink/80">
+          <li>Bina Cloudtech Sdn Bhd</li>
+          <li>Putrajaya, Malaysia</li>
+          <li><a href="#contact" class="hover:text-jkr-yellow">sales@binaxone.my</a></li>
+        </ul>
+        <div class="mt-5 flex gap-3">
+          <a href="#" aria-label="LinkedIn" class="w-9 h-9 rounded-md border border-neutral-200 flex items-center justify-center text-ink/70 hover:text-jkr-yellow hover:border-jkr-yellow/50"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM3 9h4v12H3V9Zm7 0h3.8v1.7h.1c.5-1 1.9-2 3.9-2 4.2 0 5 2.8 5 6.4V21h-4v-5.3c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9V21h-4V9Z"/></svg></a>
+          <a href="#" aria-label="X / Twitter" class="w-9 h-9 rounded-md border border-neutral-200 flex items-center justify-center text-ink/70 hover:text-jkr-yellow hover:border-jkr-yellow/50"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2H21.5l-7.5 8.573L23 22h-6.81l-5.33-6.977L4.77 22H1.51l8.03-9.18L1 2h6.91l4.82 6.37L18.244 2Zm-2.39 18h1.88L7.236 4h-2Z"/></svg></a>
+          <a href="#" aria-label="Email" class="w-9 h-9 rounded-md border border-neutral-200 flex items-center justify-center text-ink/70 hover:text-jkr-yellow hover:border-jkr-yellow/50"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></a>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-neutral-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-ink/55">
+        <div>© 2026 Bina Cloudtech Sdn Bhd. All rights reserved.</div>
+        <div>JKR BINAXONE is a product of Bina Cloudtech Sdn Bhd, developed in alignment with JKR standards.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Sidebar drawer
+    (function () {
+      const btn = document.getElementById('menu-toggle');
+      const sidebar = document.getElementById('sidebar');
+      const backdrop = document.getElementById('sidebar-backdrop');
+      const closeBtn = document.getElementById('sidebar-close');
+      if (!btn || !sidebar || !backdrop) return;
+
+      const open = () => {
+        sidebar.classList.add('open');
+        backdrop.classList.add('open');
+        document.body.classList.add('nav-locked');
+        btn.setAttribute('aria-expanded', 'true');
+      };
+      const close = () => {
+        sidebar.classList.remove('open');
+        backdrop.classList.remove('open');
+        document.body.classList.remove('nav-locked');
+        btn.setAttribute('aria-expanded', 'false');
+      };
+
+      btn.addEventListener('click', open);
+      backdrop.addEventListener('click', close);
+      closeBtn && closeBtn.addEventListener('click', close);
+      sidebar.querySelectorAll('.sidebar-link').forEach(a => a.addEventListener('click', close));
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+    })();
+
+    // Nav scroll state
+    (function () {
+      const nav = document.getElementById('nav');
+      if (!nav) return;
+      const onScroll = () => {
+        if (window.scrollY > 8) nav.classList.add('nav-scrolled');
+        else nav.classList.remove('nav-scrolled');
+      };
+      onScroll();
+      window.addEventListener('scroll', onScroll, { passive: true });
+    })();
+  </script>
+</body>
+</html>
