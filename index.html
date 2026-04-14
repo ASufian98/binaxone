@@ -111,9 +111,9 @@
       <ul class="hidden md:flex items-center gap-7 text-sm text-ink/80">
         <li><a href="#features" class="hover:text-jkr-yellow">Features</a></li>
         <li><a href="#why" class="hover:text-jkr-yellow">Benefits</a></li>
-        <li><a href="#case-study" class="hover:text-jkr-yellow">Case Study</a></li>
-        <li><a href="#compliance" class="hover:text-jkr-yellow">Compliance</a></li>
-        <li><a href="#pricing" class="hover:text-jkr-yellow">Pricing</a></li>
+        <li><a href="#design" class="hover:text-jkr-yellow">Design</a></li>
+        <li><a href="#construction" class="hover:text-jkr-yellow">Construction</a></li>
+                <li><a href="#pricing" class="hover:text-jkr-yellow">Pricing</a></li>
         <li><a href="#faq" class="hover:text-jkr-yellow">FAQ</a></li>
       </ul>
       <div class="flex items-center gap-2">
@@ -141,9 +141,9 @@
       <ul class="flex flex-col text-base">
         <li><a href="#features" class="sidebar-link flex items-center justify-between py-3 px-3 rounded-md hover:bg-neutral-50"><span>Features</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-ink/40" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a></li>
         <li><a href="#why" class="sidebar-link flex items-center justify-between py-3 px-3 rounded-md hover:bg-neutral-50"><span>Benefits</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-ink/40" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a></li>
-        <li><a href="#case-study" class="sidebar-link flex items-center justify-between py-3 px-3 rounded-md hover:bg-neutral-50"><span>Case Study</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-ink/40" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a></li>
-        <li><a href="#compliance" class="sidebar-link flex items-center justify-between py-3 px-3 rounded-md hover:bg-neutral-50"><span>Compliance</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-ink/40" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a></li>
-        <li><a href="#pricing" class="sidebar-link flex items-center justify-between py-3 px-3 rounded-md hover:bg-neutral-50"><span>Pricing</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-ink/40" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a></li>
+        <li><a href="#design" class="sidebar-link flex items-center justify-between py-3 px-3 rounded-md hover:bg-neutral-50"><span>Design</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-ink/40" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a></li>
+        <li><a href="#construction" class="sidebar-link flex items-center justify-between py-3 px-3 rounded-md hover:bg-neutral-50"><span>Construction</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-ink/40" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a></li>
+                <li><a href="#pricing" class="sidebar-link flex items-center justify-between py-3 px-3 rounded-md hover:bg-neutral-50"><span>Pricing</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-ink/40" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a></li>
         <li><a href="#faq" class="sidebar-link flex items-center justify-between py-3 px-3 rounded-md hover:bg-neutral-50"><span>FAQ</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="text-ink/40" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></a></li>
       </ul>
     </nav>
@@ -199,44 +199,7 @@
               </div>
               <!-- BIM viewer panel -->
               <div class="relative rounded-lg border border-neutral-200 bg-white overflow-hidden">
-                <div class="illus-grid aspect-[4/3] relative">
-                  <svg viewBox="0 0 400 300" class="absolute inset-0 w-full h-full" aria-hidden="true">
-                    <defs>
-                      <linearGradient id="bim-g" x1="0" y1="0" x2="1" y2="1">
-                        <stop offset="0%" stop-color="#F2C200" stop-opacity="0.35"/>
-                        <stop offset="100%" stop-color="#EA580C" stop-opacity="0.18"/>
-                      </linearGradient>
-                    </defs>
-                    <!-- isometric building frame -->
-                    <g stroke="#0F0F0F" stroke-width="1" fill="none" stroke-linejoin="round">
-                      <polygon points="200,60 320,120 320,220 200,280 80,220 80,120" fill="url(#bim-g)"/>
-                      <line x1="200" y1="60" x2="200" y2="280"/>
-                      <line x1="80" y1="120" x2="320" y2="120"/>
-                      <line x1="80" y1="170" x2="320" y2="170"/>
-                      <line x1="80" y1="220" x2="320" y2="220"/>
-                      <line x1="140" y1="90" x2="140" y2="250"/>
-                      <line x1="260" y1="90" x2="260" y2="250"/>
-                    </g>
-                    <!-- slab hatching -->
-                    <g stroke="#A07800" stroke-width="0.8" opacity="0.6">
-                      <line x1="85" y1="165" x2="315" y2="165"/>
-                      <line x1="85" y1="215" x2="315" y2="215"/>
-                    </g>
-                    <!-- clash indicator dot -->
-                    <circle cx="260" cy="170" r="6" fill="#EA580C"/>
-                    <circle cx="260" cy="170" r="11" fill="none" stroke="#EA580C" stroke-width="1.2" opacity="0.5"/>
-                  </svg>
-                  <!-- toolbar -->
-                  <div class="absolute top-3 left-3 flex gap-1.5">
-                    <span class="w-7 h-7 rounded-md bg-white border border-neutral-200 flex items-center justify-center text-ink/70"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 3 3 7.5v9L12 21l9-4.5v-9L12 3Z"/></svg></span>
-                    <span class="w-7 h-7 rounded-md bg-white border border-neutral-200 flex items-center justify-center text-ink/70"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></span>
-                    <span class="w-7 h-7 rounded-md bg-white border border-neutral-200 flex items-center justify-center text-ink/70"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/></svg></span>
-                  </div>
-                  <!-- clash pill -->
-                  <div class="absolute top-3 right-3 chip" style="background:#FFF3E0;border-color:#FCD5A0;color:#B45309">
-                    <span class="w-1.5 h-1.5 rounded-full bg-jkr-orange"></span> 1 clash
-                  </div>
-                </div>
+                <img src="bim-ifc.jpeg" alt="BIM IFC model viewer" class="block w-full h-auto"/>
               </div>
 
               <!-- document list below viewer -->
@@ -339,14 +302,6 @@
               <span class="px-2 py-1 rounded-full bg-neutral-100 text-ink/80">Archive</span>
             </div>
           </article>
-          <!-- 5 -->
-          <article class="card rounded-xl p-6 transition-colors">
-            <div class="w-11 h-11 rounded-lg bg-jkr-yellow/10 border border-jkr-yellow/30 flex items-center justify-center text-jkr-yellow">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg>
-            </div>
-            <h3 class="mt-5 text-lg font-semibold">4D Scheduling &amp; Sequencing</h3>
-            <p class="mt-2 text-sm text-ink/70">Tie model elements to construction schedules. Visualise sequencing, clashes, and critical-path risk before it hits site.</p>
-          </article>
           <!-- 6 -->
           <article class="card rounded-xl p-6 transition-colors">
             <div class="w-11 h-11 rounded-lg bg-jkr-yellow/10 border border-jkr-yellow/30 flex items-center justify-center text-jkr-yellow">
@@ -356,16 +311,12 @@
             <p class="mt-2 text-sm text-ink/70">Granular role-based access mirrored to real project structures — client, PMC, consultant, contractor, sub-contractor.</p>
           </article>
           <!-- 7 -->
-          <article class="card rounded-xl p-6 transition-colors sm:col-span-2 lg:col-span-3">
-            <div class="flex flex-col sm:flex-row items-start gap-4 sm:gap-5">
-              <div class="w-11 h-11 shrink-0 rounded-lg bg-jkr-yellow/10 border border-jkr-yellow/30 flex items-center justify-center text-jkr-yellow">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M3 4h18v4H3zM3 10h12v10H3zM17 14l2 2 4-4"/></svg>
-              </div>
-              <div class="min-w-0">
-                <h3 class="text-lg font-semibold">Audit Logs &amp; Digital Signing</h3>
-                <p class="mt-2 text-sm text-ink/70 max-w-3xl">Every action time-stamped, every sign-off cryptographically bound to the artefact. Export a complete project chain-of-custody when auditors or arbitration call for it.</p>
-              </div>
+          <article class="card rounded-xl p-6 transition-colors">
+            <div class="w-11 h-11 rounded-lg bg-jkr-yellow/10 border border-jkr-yellow/30 flex items-center justify-center text-jkr-yellow">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M3 4h18v4H3zM3 10h12v10H3zM17 14l2 2 4-4"/></svg>
             </div>
+            <h3 class="mt-5 text-lg font-semibold">Audit Logs &amp; Digital Signing</h3>
+            <p class="mt-2 text-sm text-ink/70">Every action time-stamped, every sign-off cryptographically bound to the artefact. Export a complete project chain-of-custody when auditors or arbitration call for it.</p>
           </article>
         </div>
       </div>
@@ -415,6 +366,150 @@
       </div>
     </section>
 
+    <!-- DESIGN PHASE -->
+    <section id="design" class="relative py-16 sm:py-24 border-t border-neutral-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
+          <!-- Intro copy -->
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-widest text-jkr-yellow">Design Phase</p>
+            <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight">Design together — in the model, in real time.</h2>
+            <p class="mt-4 text-ink/75">Architects, engineers, and BIM managers co-author, coordinate, and resolve issues on the same source of truth. Less email, fewer surprises, and clash-free models by the time they reach site.</p>
+          </div>
+          <!-- Phone visual -->
+          <div class="illus-surface rounded-xl p-4 sm:p-5 relative">
+            <div class="flex items-center gap-1.5 mb-3">
+              <span class="w-2.5 h-2.5 rounded-full bg-jkr-yellow/80"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-neutral-300"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-neutral-300"></span>
+              <span class="ml-3 text-[10px] tracking-widest uppercase text-ink/45">Design · Mobile companion</span>
+            </div>
+            <div class="rounded-lg border border-neutral-200 bg-white overflow-hidden flex items-center justify-center">
+              <img src="binaxone_mac.png" alt="JKR BINAXONE desktop design workspace" class="block w-full h-auto"/>
+            </div>
+          </div>
+        </div>
+        <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+          <!-- 1 Real-time Co-Authoring -->
+          <article class="card rounded-xl p-6 transition-colors">
+            <div class="w-11 h-11 rounded-lg bg-jkr-yellow/10 border border-jkr-yellow/30 flex items-center justify-center text-jkr-yellow">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M2 21c0-3.5 3-6 7-6s7 2.5 7 6"/><circle cx="17" cy="9" r="2"/><path d="M15 21c0-2.5 2-4.5 4.5-4.5"/></svg>
+            </div>
+            <h3 class="mt-5 text-lg font-semibold">Real-time Co-Authoring</h3>
+            <p class="mt-2 text-sm text-ink/70">Multiple architects and engineers edit the same Revit model simultaneously from anywhere. Changes sync live — no emailing files back and forth, no arguments about who has the "latest version."</p>
+          </article>
+          <!-- 2 Design Collaboration & Package Sharing -->
+          <article class="card rounded-xl p-6 transition-colors">
+            <div class="w-11 h-11 rounded-lg bg-jkr-yellow/10 border border-jkr-yellow/30 flex items-center justify-center text-jkr-yellow">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5-5 5 5"/><path d="M12 5v12"/></svg>
+            </div>
+            <h3 class="mt-5 text-lg font-semibold">Design Collaboration &amp; Package Sharing</h3>
+            <p class="mt-2 text-sm text-ink/70">Teams publish packages of work-in-progress design data on a timeline. See who shared what and when, compare versions visually, and consume updates only when you're ready — so downstream disciplines never get blindsided mid-task.</p>
+          </article>
+          <!-- 3 Model Coordination & Clash Detection -->
+          <article class="card rounded-xl p-6 transition-colors">
+            <div class="w-11 h-11 rounded-lg bg-jkr-yellow/10 border border-jkr-yellow/30 flex items-center justify-center text-jkr-yellow">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><circle cx="9" cy="9" r="5"/><circle cx="15" cy="15" r="5"/></svg>
+            </div>
+            <h3 class="mt-5 text-lg font-semibold">Model Coordination &amp; Clash Detection</h3>
+            <p class="mt-2 text-sm text-ink/70">Automatic clash detection across architectural, structural, and MEP models. The system flags conflicts — like a duct running through a beam — before they become expensive on-site rework. Powered by Navisworks integration.</p>
+          </article>
+          <!-- 4 Issue Tracking & Markups -->
+          <article class="card rounded-xl p-6 transition-colors">
+            <div class="w-11 h-11 rounded-lg bg-jkr-yellow/10 border border-jkr-yellow/30 flex items-center justify-center text-jkr-yellow">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>
+            </div>
+            <h3 class="mt-5 text-lg font-semibold">Issue Tracking &amp; Markups</h3>
+            <p class="mt-2 text-sm text-ink/70">Create, assign, and resolve issues anchored to 3D elements or 2D sheets. Each carries a status workflow (Open → In Review → Resolved), assignees, due dates, photos, and markups — syncing bidirectionally between Revit, Navisworks, and web/mobile.</p>
+          </article>
+          <!-- 5 Dashboards & Analytics -->
+          <article class="card rounded-xl p-6 transition-colors sm:col-span-2 lg:col-span-2">
+            <div class="w-11 h-11 rounded-lg bg-jkr-yellow/10 border border-jkr-yellow/30 flex items-center justify-center text-jkr-yellow">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-4 4 4 5-6"/></svg>
+            </div>
+            <h3 class="mt-5 text-lg font-semibold">Dashboards &amp; Analytics</h3>
+            <p class="mt-2 text-sm text-ink/70">Project-level dashboards showing open issues, overdue items, design risks, clash trends, and team activity — so BIM managers and project leads can spot bottlenecks early and act on them.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONSTRUCTION PHASE -->
+    <section id="construction" class="relative py-16 sm:py-24 border-t border-neutral-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
+          <!-- Placeholder visual -->
+          <div class="illus-surface rounded-xl p-4 sm:p-5 relative order-last lg:order-first">
+            <div class="flex items-center gap-1.5 mb-3">
+              <span class="w-2.5 h-2.5 rounded-full bg-jkr-yellow/80"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-neutral-300"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-neutral-300"></span>
+              <span class="ml-3 text-[10px] tracking-widest uppercase text-ink/45">Site · Construction view</span>
+            </div>
+            <div class="rounded-lg border border-neutral-200 bg-white overflow-hidden flex items-center justify-center">
+              <img src="binaxone_phone_image.png" alt="JKR BINAXONE mobile app" class="block max-h-[520px] w-auto"/>
+            </div>
+          </div>
+          <!-- Intro copy -->
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-widest text-jkr-yellow">Construction Phase</p>
+            <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight">From design handover to site delivery — one continuous record.</h2>
+            <p class="mt-4 text-ink/75">JKR BINAXONE follows the project past tender. Site teams, PMC, and contractors work off the same model and documents that design signed off on — with construction-grade workflows layered on top.</p>
+          </div>
+        </div>
+        <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+          <!-- 1 Site progress -->
+          <article class="card rounded-xl p-6 transition-colors">
+            <div class="w-11 h-11 rounded-lg bg-jkr-yellow/10 border border-jkr-yellow/30 flex items-center justify-center text-jkr-yellow">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M3 20h18M5 20V9l7-5 7 5v11"/><path d="M9 20v-6h6v6"/></svg>
+            </div>
+            <h3 class="mt-5 text-lg font-semibold">Site Progress Tracking</h3>
+            <p class="mt-2 text-sm text-ink/70">Capture daily progress photos, geotagged inspections, and percentage-complete against the BIM model. No more duplicated site diaries.</p>
+          </article>
+          <!-- 2 RFI -->
+          <article class="card rounded-xl p-6 transition-colors">
+            <div class="w-11 h-11 rounded-lg bg-jkr-yellow/10 border border-jkr-yellow/30 flex items-center justify-center text-jkr-yellow">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M21 12a8 8 0 1 1-3-6.2"/><path d="M12 8v4l3 2"/></svg>
+            </div>
+            <h3 class="mt-5 text-lg font-semibold">RFIs &amp; Site Instructions</h3>
+            <p class="mt-2 text-sm text-ink/70">Raise, route, and close out Requests for Information and Site Instructions against the exact drawing revision — with SLA clocks and full audit trail.</p>
+          </article>
+          <!-- 3 Document management & correspondence -->
+          <article class="card rounded-xl p-6 transition-colors">
+            <div class="w-11 h-11 rounded-lg bg-jkr-yellow/10 border border-jkr-yellow/30 flex items-center justify-center text-jkr-yellow">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M4 4h10l4 4v12H4z"/><path d="M14 4v4h4"/><path d="M8 13h6M8 17h4"/></svg>
+            </div>
+            <h3 class="mt-5 text-lg font-semibold">Document Management &amp; Correspondence</h3>
+            <p class="mt-2 text-sm text-ink/70">Controlled versioning, transmittals, and structured correspondence — letters, memos, and meeting minutes — all numbered, routed, and archived against the project record.</p>
+          </article>
+          <!-- 4 Quality / ITP -->
+          <article class="card rounded-xl p-6 transition-colors">
+            <div class="w-11 h-11 rounded-lg bg-jkr-yellow/10 border border-jkr-yellow/30 flex items-center justify-center text-jkr-yellow">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            </div>
+            <h3 class="mt-5 text-lg font-semibold">Inspection &amp; Test Plans</h3>
+            <p class="mt-2 text-sm text-ink/70">Digital ITPs, checklists, and hold-point approvals captured on-site via mobile — with pass/fail evidence bound to the model component.</p>
+          </article>
+          <!-- 5 Snags / defects -->
+          <article class="card rounded-xl p-6 transition-colors">
+            <div class="w-11 h-11 rounded-lg bg-jkr-yellow/10 border border-jkr-yellow/30 flex items-center justify-center text-jkr-yellow">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg>
+            </div>
+            <h3 class="mt-5 text-lg font-semibold">Snag &amp; Defect Management</h3>
+            <p class="mt-2 text-sm text-ink/70">Pinpoint defects directly on the model or drawing. Assign, track, and close with photo evidence — nothing slips between handover and DLP.</p>
+          </article>
+          <!-- 7 Handover -->
+          <article class="card rounded-xl p-6 transition-colors">
+            <div class="w-11 h-11 rounded-lg bg-jkr-yellow/10 border border-jkr-yellow/30 flex items-center justify-center text-jkr-yellow">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M3 7h18v13H3z"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M9 13h6"/></svg>
+            </div>
+            <h3 class="mt-5 text-lg font-semibold">As-Built Handover &amp; O&amp;M</h3>
+            <p class="mt-2 text-sm text-ink/70">At project close, the as-built model, operations manuals, warranties, and asset data are packaged into a single verified handover — ready for facilities management and long-term JKR asset stewardship.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <!-- WHY -->
     <section id="why" class="relative py-16 sm:py-24 border-t border-neutral-200 overflow-hidden">
       <div class="absolute -top-20 left-1/2 -translate-x-1/2 w-[800px] h-[400px] yellow-glow-sm pointer-events-none" aria-hidden="true"></div>
@@ -456,141 +551,6 @@
       </div>
     </section>
 
-    <!-- CASE STUDY -->
-    <section id="case-study" class="relative py-16 sm:py-24 border-t border-neutral-200">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
-        <div>
-          <p class="text-xs font-semibold uppercase tracking-widest text-jkr-yellow">Case Study</p>
-          <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight">How a large infrastructure project streamlined its CDE.</h2>
-          <p class="mt-5 text-ink/75">A multi-disciplinary infrastructure programme consolidated drawings, models, and approvals onto JKR BINAXONE — replacing a patchwork of email threads, shared drives, and foreign CDE platforms. Within one quarter, coordination meetings halved and sign-off cycles dropped below a business day.</p>
-          <div class="mt-8 grid grid-cols-3 gap-3 sm:gap-4">
-            <div class="card rounded-lg p-4">
-              <div class="text-2xl sm:text-3xl font-extrabold text-jkr-yellow">60%</div>
-              <div class="mt-1 text-xs text-ink/70 leading-tight">Faster document turnaround</div>
-            </div>
-            <div class="card rounded-lg p-4">
-              <div class="text-2xl sm:text-3xl font-extrabold text-jkr-yellow">0</div>
-              <div class="mt-1 text-xs text-ink/70 leading-tight">Clash-related RFIs in final coordination</div>
-            </div>
-            <div class="card rounded-lg p-4">
-              <div class="text-2xl sm:text-3xl font-extrabold text-jkr-yellow">12+</div>
-              <div class="mt-1 text-xs text-ink/70 leading-tight">Disciplines on a single source of truth</div>
-            </div>
-          </div>
-          <p class="mt-6 text-xs text-ink/50">Client name and project details withheld under NDA. Metrics reflect platform-reported activity over a single programme phase.</p>
-        </div>
-        <div class="illus-surface rounded-xl p-4 sm:p-5 relative">
-          <div class="flex items-center gap-1.5 mb-3">
-            <span class="w-2.5 h-2.5 rounded-full bg-jkr-yellow/80"></span>
-            <span class="w-2.5 h-2.5 rounded-full bg-neutral-300"></span>
-            <span class="w-2.5 h-2.5 rounded-full bg-neutral-300"></span>
-            <span class="ml-3 text-[10px] tracking-widest uppercase text-ink/45">Programme · Infra-MY</span>
-          </div>
-          <div class="rounded-lg border border-neutral-200 bg-white overflow-hidden">
-            <div class="illus-grid aspect-[16/11] relative">
-              <svg viewBox="0 0 600 400" class="absolute inset-0 w-full h-full" aria-hidden="true">
-                <defs>
-                  <linearGradient id="cs-g" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stop-color="#F2C200" stop-opacity="0.28"/>
-                    <stop offset="100%" stop-color="#EA580C" stop-opacity="0.12"/>
-                  </linearGradient>
-                </defs>
-                <!-- bridge / infrastructure wireframe -->
-                <g stroke="#0F0F0F" stroke-width="1" fill="none">
-                  <path d="M40 280 Q300 140 560 280" stroke-width="1.5"/>
-                  <path d="M40 300 Q300 170 560 300" opacity="0.6"/>
-                  <line x1="40" y1="280" x2="40" y2="360"/>
-                  <line x1="160" y1="236" x2="160" y2="360"/>
-                  <line x1="300" y1="190" x2="300" y2="360"/>
-                  <line x1="440" y1="236" x2="440" y2="360"/>
-                  <line x1="560" y1="280" x2="560" y2="360"/>
-                  <line x1="30" y1="360" x2="570" y2="360"/>
-                  <polygon points="40,280 160,236 300,190 440,236 560,280 560,300 440,256 300,210 160,256 40,300" fill="url(#cs-g)"/>
-                </g>
-                <!-- gridlines on road -->
-                <g stroke="#A07800" stroke-width="0.6" opacity="0.5">
-                  <line x1="60" y1="360" x2="540" y2="360"/>
-                  <line x1="60" y1="350" x2="540" y2="350" stroke-dasharray="4 6"/>
-                </g>
-                <!-- status pins -->
-                <g>
-                  <circle cx="160" cy="236" r="5" fill="#A07800"/>
-                  <circle cx="300" cy="190" r="6" fill="#F2C200" stroke="#A07800"/>
-                  <circle cx="440" cy="236" r="5" fill="#A07800"/>
-                </g>
-              </svg>
-              <!-- top-left legend -->
-              <div class="absolute top-3 left-3 flex flex-col gap-1.5">
-                <span class="chip" style="padding:2px 8px;font-size:9px">12 disciplines</span>
-                <span class="chip" style="padding:2px 8px;font-size:9px;background:#FFF9DB;border-color:#F2C200;color:#A07800">All published</span>
-              </div>
-              <!-- bottom timeline -->
-              <div class="absolute bottom-2 left-3 right-3 flex items-center gap-1">
-                <span class="h-1 flex-1 rounded bg-jkr-yellow"></span>
-                <span class="h-1 flex-1 rounded bg-jkr-yellow"></span>
-                <span class="h-1 flex-1 rounded bg-jkr-yellow"></span>
-                <span class="h-1 flex-1 rounded bg-jkr-yellow/60"></span>
-                <span class="h-1 flex-1 rounded bg-neutral-200"></span>
-              </div>
-            </div>
-          </div>
-          <div class="mt-3 flex items-center justify-between text-[11px] text-ink/55">
-            <span>4D sequence · Q2–Q4</span>
-            <span class="text-ink/40">Screenshot redacted</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- COMPLIANCE -->
-    <section id="compliance" class="relative py-16 sm:py-24 border-t border-neutral-200">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="max-w-2xl">
-          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Compliance &amp; security, by default.</h2>
-          <p class="mt-4 text-ink/75">Every project on JKR BINAXONE inherits the same controls — no add-ons, no upgrade tier required.</p>
-        </div>
-        <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <!-- badge template -->
-          <div class="card rounded-lg p-5 flex items-start gap-4">
-            <div class="w-10 h-10 shrink-0 rounded-md bg-jkr-yellow/10 border border-jkr-yellow/30 flex items-center justify-center text-jkr-yellow">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg>
-            </div>
-            <div><div class="font-semibold">ISO 19650</div><div class="text-xs text-ink/65 mt-1">Information management aligned to the global CDE standard.</div></div>
-          </div>
-          <div class="card rounded-lg p-5 flex items-start gap-4">
-            <div class="w-10 h-10 shrink-0 rounded-md bg-jkr-yellow/10 border border-jkr-yellow/30 flex items-center justify-center text-jkr-yellow">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 9h10M7 13h6M7 17h4"/></svg>
-            </div>
-            <div><div class="font-semibold">ISO/IEC 27001</div><div class="text-xs text-ink/65 mt-1">Delivered via TM One Cloud Alpha, Cyberjaya — Tier III data centre.</div></div>
-          </div>
-          <div class="card rounded-lg p-5 flex items-start gap-4">
-            <div class="w-10 h-10 shrink-0 rounded-md bg-jkr-yellow/10 border border-jkr-yellow/30 flex items-center justify-center text-jkr-yellow">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
-            </div>
-            <div><div class="font-semibold">AES-256 Encryption</div><div class="text-xs text-ink/65 mt-1">All data encrypted at rest with industry-standard AES-256.</div></div>
-          </div>
-          <div class="card rounded-lg p-5 flex items-start gap-4">
-            <div class="w-10 h-10 shrink-0 rounded-md bg-jkr-yellow/10 border border-jkr-yellow/30 flex items-center justify-center text-jkr-yellow">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M4 12a8 8 0 0 1 16 0M4 12a8 8 0 0 0 16 0M4 12h16"/></svg>
-            </div>
-            <div><div class="font-semibold">TLS 1.3</div><div class="text-xs text-ink/65 mt-1">Modern transport security on every connection, end to end.</div></div>
-          </div>
-          <div class="card rounded-lg p-5 flex items-start gap-4">
-            <div class="w-10 h-10 shrink-0 rounded-md bg-jkr-yellow/10 border border-jkr-yellow/30 flex items-center justify-center text-jkr-yellow">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10"/><circle cx="19" cy="18" r="2"/></svg>
-            </div>
-            <div><div class="font-semibold">Audit Logging</div><div class="text-xs text-ink/65 mt-1">Every action traceable; export for audit or arbitration on demand.</div></div>
-          </div>
-          <div class="card rounded-lg p-5 flex items-start gap-4">
-            <div class="w-10 h-10 shrink-0 rounded-md bg-jkr-yellow/10 border border-jkr-yellow/30 flex items-center justify-center text-jkr-yellow">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5"/><circle cx="17" cy="9" r="2"/><path d="M14 20c0-2 1.5-3.5 3-3.5s3 1.5 3 3.5"/></svg>
-            </div>
-            <div><div class="font-semibold">RBAC</div><div class="text-xs text-ink/65 mt-1">Role-based access control mapped to real project organisations.</div></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- PRICING -->
     <section id="pricing" class="relative py-16 sm:py-24 border-t border-neutral-200">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -614,15 +574,6 @@
           </article>
         </div>
         <p class="mt-8 text-xs text-ink/55 max-w-3xl">Flexible licensing models available — royalty-based, annual subscription, or pay-per-project — tailored to government procurement and private-sector contract structures.</p>
-      </div>
-    </section>
-
-    <!-- ABOUT -->
-    <section id="about" class="relative py-16 sm:py-24 border-t border-neutral-200">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <p class="text-xs font-semibold uppercase tracking-widest text-jkr-yellow">Built by Bina Cloudtech Sdn Bhd</p>
-        <h2 class="mt-3 text-3xl sm:text-4xl font-extrabold tracking-tight">Malaysian engineering for Malaysian infrastructure.</h2>
-        <p class="mt-6 text-ink/75 text-lg">We build JKR BINAXONE from Putrajaya, alongside the agencies and delivery teams we serve. Our engineers have spent their careers on AEC platforms and government compliance — and we believe the country's most important projects deserve infrastructure owned, operated, and secured here at home.</p>
       </div>
     </section>
 
@@ -709,7 +660,7 @@
             <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight">Let's talk.</h2>
             <p class="mt-3 text-ink/75">We'll get back to you within 1 business day.</p>
           </div>
-          <form action="#" method="post" class="mt-10 space-y-5" novalidate>
+          <form id="contact-form" action="/api/contact" method="post" class="mt-10 space-y-5" novalidate>
             <div style="position:absolute;left:-9999px" aria-hidden="true">
               <label>Do not fill<input type="text" name="company_website" tabindex="-1" autocomplete="off" /></label>
             </div>
@@ -726,6 +677,7 @@
               <textarea id="message" name="message" rows="5" required class="w-full bg-white border border-neutral-200 rounded-md px-4 py-3 text-ink placeholder:text-ink/40 focus:border-jkr-yellow" placeholder="Tell us about your project, agency, or programme."></textarea>
             </div>
             <button type="submit" class="btn-primary w-full px-5 py-3 rounded-md">Send message</button>
+            <div id="contact-status" role="status" aria-live="polite" class="text-sm text-center min-h-[1.25rem]"></div>
           </form>
         </div>
       </div>
@@ -748,8 +700,7 @@
         <ul class="mt-4 space-y-2 text-sm">
           <li><a href="#features" class="text-ink/80 hover:text-jkr-yellow">Features</a></li>
           <li><a href="#why" class="text-ink/80 hover:text-jkr-yellow">Benefits</a></li>
-          <li><a href="#compliance" class="text-ink/80 hover:text-jkr-yellow">Compliance</a></li>
-          <li><a href="#pricing" class="text-ink/80 hover:text-jkr-yellow">Pricing</a></li>
+                    <li><a href="#pricing" class="text-ink/80 hover:text-jkr-yellow">Pricing</a></li>
         </ul>
       </div>
       <div>
@@ -813,6 +764,53 @@
       };
       onScroll();
       window.addEventListener('scroll', onScroll, { passive: true });
+    })();
+
+    // Contact Sales form → POST /api/contact
+    (function () {
+      const form = document.getElementById('contact-form');
+      if (!form) return;
+      const status = document.getElementById('contact-status');
+      const button = form.querySelector('button[type="submit"]');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        status.textContent = '';
+        status.className = 'text-sm text-center min-h-[1.25rem] text-ink/70';
+
+        const data = {
+          name: form.name.value,
+          email: form.email.value,
+          message: form.message.value,
+          company_website: form.company_website ? form.company_website.value : '',
+        };
+
+        button.disabled = true;
+        const originalLabel = button.textContent;
+        button.textContent = 'Sending…';
+
+        try {
+          const res = await fetch('/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+          });
+          const json = await res.json().catch(() => ({}));
+          if (res.ok && json.ok) {
+            form.innerHTML = '<div class="text-center py-6"><div class="text-xl font-bold text-jkr-yellow">Thanks — message received.</div><p class="mt-2 text-ink/75">We\'ll get back to you within 1 business day. A confirmation has been sent to your inbox.</p></div>';
+          } else {
+            status.className = 'text-sm text-center min-h-[1.25rem] text-red-600';
+            status.innerHTML = (json.error || 'Something went wrong sending your message.') + ' You can also email <a class="underline" href="mailto:sales@bina.cloud">sales@bina.cloud</a> directly.';
+            button.disabled = false;
+            button.textContent = originalLabel;
+          }
+        } catch (err) {
+          status.className = 'text-sm text-center min-h-[1.25rem] text-red-600';
+          status.innerHTML = 'Network error. Please try again or email <a class="underline" href="mailto:sales@bina.cloud">sales@bina.cloud</a>.';
+          button.disabled = false;
+          button.textContent = originalLabel;
+        }
+      });
     })();
   </script>
 </body>
