@@ -40,7 +40,7 @@ async function sendMail(fields) {
 }
 
 app.post('/api/contact', async (req, res) => {
-  const { name = '', email = '', message = '', hp_field_xyz = '' } = req.body || {};
+  const { name = '', email = '', organisation = '', phone = '', message = '', hp_field_xyz = '' } = req.body || {};
 
   if (hp_field_xyz.trim() !== '') {
     return res.status(200).json({ ok: true });
@@ -48,12 +48,20 @@ app.post('/api/contact', async (req, res) => {
 
   const cleanName = String(name).trim();
   const cleanEmail = String(email).trim();
+  const cleanOrg = String(organisation).trim();
+  const cleanPhone = String(phone).trim();
   const cleanMessage = String(message).trim();
 
-  if (!cleanName || !EMAIL_RE.test(cleanEmail) || !cleanMessage) {
-    return res.status(400).json({ ok: false, error: 'Please fill in name, a valid email, and a message.' });
+  if (!cleanName || !EMAIL_RE.test(cleanEmail) || !cleanOrg || !cleanMessage) {
+    return res.status(400).json({ ok: false, error: 'Please fill in name, a valid email, your organisation, and a message.' });
   }
-  if (cleanName.length > 200 || cleanEmail.length > 200 || cleanMessage.length > 5000) {
+  if (
+    cleanName.length > 200 ||
+    cleanEmail.length > 200 ||
+    cleanOrg.length > 200 ||
+    cleanPhone.length > 50 ||
+    cleanMessage.length > 5000
+  ) {
     return res.status(400).json({ ok: false, error: 'Submission too long.' });
   }
 
@@ -66,8 +74,13 @@ app.post('/api/contact', async (req, res) => {
     from: FROM,
     to: SALES_INBOX,
     'h:Reply-To': cleanEmail,
-    subject: `New Contact Sales inquiry — ${cleanName}`,
-    text: `Name: ${cleanName}\nEmail: ${cleanEmail}\n\nMessage:\n${cleanMessage}\n`,
+    subject: `New Contact Sales inquiry — ${cleanName} (${cleanOrg})`,
+    text:
+      `Name: ${cleanName}\n` +
+      `Email: ${cleanEmail}\n` +
+      `Organisation: ${cleanOrg}\n` +
+      `Phone: ${cleanPhone || '—'}\n\n` +
+      `Message:\n${cleanMessage}\n`,
   };
 
   const ack = {
