@@ -1,8 +1,8 @@
 {
-  "name": "binaxone-site",
+  "name": "binazone-site",
   "version": "1.0.0",
   "private": true,
-  "description": "BinaXone marketing site with Mailgun-backed contact form.",
+  "description": "BinaZone marketing site with Mailgun-backed contact form.",
   "engines": {
     "node": ">=22"
   },

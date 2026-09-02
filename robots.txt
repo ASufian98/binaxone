@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.jkrbinaxone.com/sitemap.xml
+Sitemap: https://www.jkrbinazone.com/sitemap.xml
