@@ -24,7 +24,7 @@ az webapp config appsettings set -g $RG -n $APP --settings \
   MAILGUN_API_KEY='<rotated key>' \
   MAILGUN_DOMAIN='mail.bina.cloud' \
   MAILGUN_SENDER_EMAIL='noreply@bina.cloud' \
-  MAILGUN_SENDER_NAME='BinaXone Website' \
+  MAILGUN_SENDER_NAME='BinaZone Website' \
   SALES_INBOX='sales@bina.cloud' \
   WEBSITE_NODE_DEFAULT_VERSION='~22' \
   SCM_DO_BUILD_DURING_DEPLOYMENT='true'

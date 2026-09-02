@@ -6,13 +6,29 @@ const {
   MAILGUN_API_KEY,
   MAILGUN_DOMAIN = 'mail.bina.cloud',
   MAILGUN_SENDER_EMAIL = 'noreply@bina.cloud',
-  MAILGUN_SENDER_NAME = 'BinaXone Website',
+  MAILGUN_SENDER_NAME = 'BinaZone Website',
   SALES_INBOX = 'sales@bina.cloud',
   PORT = 8080,
 } = process.env;
 
 const app = express();
 app.set('trust proxy', 1);
+
+// The site moved from jkrbinaxone.com to jkrbinazone.com. Both brands still
+// resolve to this app, so retire the old one here instead of serving the site
+// under two names. Path and query survive the hop — GoDaddy's forwarder drops
+// them and 404s anything below the root, which is why this lives in the app.
+//
+// Host-matched, so the canonical host and the *.azurewebsites.net origin (and
+// with it the /healthz probe) fall through untouched — no redirect loop.
+const CANONICAL_HOST = 'www.jkrbinazone.com';
+const LEGACY_HOSTS = new Set(['jkrbinaxone.com', 'www.jkrbinaxone.com']);
+
+app.use((req, res, next) => {
+  const host = String(req.headers.host || '').split(':')[0].toLowerCase();
+  if (!LEGACY_HOSTS.has(host)) return next();
+  return res.redirect(301, `https://${CANONICAL_HOST}${req.originalUrl}`);
+});
 app.use(express.json({ limit: '16kb' }));
 app.use(express.static(__dirname));
 
@@ -86,13 +102,13 @@ app.post('/api/contact', async (req, res) => {
   const ack = {
     from: FROM,
     to: cleanEmail,
-    subject: 'We received your message — BinaXone',
+    subject: 'We received your message — BinaZone',
     text:
       `Hi ${cleanName},\n\n` +
-      `Thanks for reaching out to BinaXone. We've received your message and a member of our team will get back to you within 1 business day.\n\n` +
+      `Thanks for reaching out to BinaZone. We've received your message and a member of our team will get back to you within 1 business day.\n\n` +
       `For your records, here is what you sent:\n\n` +
       `${cleanMessage}\n\n` +
-      `— BinaXone Sales\nBina Cloudtech Sdn Bhd, Putrajaya\n`,
+      `— BinaZone Sales\nBina Cloudtech Sdn Bhd, Putrajaya\n`,
   };
 
   try {
